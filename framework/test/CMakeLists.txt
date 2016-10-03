@@ -50,6 +50,7 @@ set(_tests
   LDAPFilterTest
   LDAPQueryTest
   LogTest
+  BundleActivatorTest
   BundleEventTest
   BundleHooksTest
   BundleManifestTest

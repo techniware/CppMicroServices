@@ -43,12 +43,13 @@ macro(build_and_test)
 
 endmacro()
 
-function(create_initial_cache var _shared _threading)
+function(create_initial_cache var _shared _threading _tsan)
 
   set(_initial_cache "
       US_BUILD_TESTING:BOOL=ON
       US_BUILD_SHARED_LIBS:BOOL=${_shared}
       US_ENABLE_THREADING_SUPPORT:BOOL=${_threading}
+      US_ENABLE_TSAN:BOOL=${_tsan}
       ")
   if(_shared)
     set(_initial_cache "${_initial_cache} US_BUILD_EXAMPLES:BOOL=ON
@@ -65,6 +66,10 @@ function(create_initial_cache var _shared _threading)
 
   if(_threading)
     set(CTEST_DASHBOARD_NAME "${CTEST_DASHBOARD_NAME}-threading")
+  endif()
+  
+  if(_tsan)
+    set(CTEST_DASHBOARD_NAME "${CTEST_DASHBOARD_NAME}-tsan")
   endif()
 
   set(CTEST_DASHBOARD_NAME "${CTEST_DASHBOARD_NAME} (${_generator})" PARENT_SCOPE)
@@ -94,7 +99,7 @@ endif()
 foreach (_generator ${US_CMAKE_GENERATOR})
   set(CTEST_CMAKE_GENERATOR ${_generator})
   foreach(i ${US_BUILD_CONFIGURATION})
-    create_initial_cache(CTEST_INITIAL_CACHE ${config${i}})
+    create_initial_cache(CTEST_INITIAL_CACHE ${config${i}} ${US_BUILD_ENABLE_TSAN})
     message("Testing build configuration: ${CTEST_DASHBOARD_NAME}")
     build_and_test()
   endforeach()

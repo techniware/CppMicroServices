@@ -19,7 +19,6 @@ matrix:
           addons: *valgrind
           compiler: gcc
           env: BUILD_CONFIGURATION=1
-        # latest compiler on OS X
         - os: osx
           osx_image: xcode7.3
           compiler: clang
@@ -37,6 +36,7 @@ matrix:
           osx_image: xcode6.4
           compiler: clang
           env: BUILD_CONFIGURATION=1 MACOSX_DEPLOYMENT_TARGET=10.10
+        # latest compiler on OS X
         - os: osx
           osx_image: xcode8
           compiler: clang
@@ -45,6 +45,15 @@ matrix:
           osx_image: xcode8
           compiler: clang
           env: BUILD_CONFIGURATION=1 MACOSX_DEPLOYMENT_TARGET=10.11
+        # Use thread sanitizer
+        - os: osx
+          osx_image: xcode8
+          compiler: clang
+          env: BUILD_CONFIGURATION=0 ENABLE_TSAN=1 MACOSX_DEPLOYMENT_TARGET=10.11
+        - os: osx
+          osx_image: xcode8
+          compiler: clang
+          env: BUILD_CONFIGURATION=1 ENABLE_TSAN=1 MACOSX_DEPLOYMENT_TARGET=10.11
 
 cache:
   directories:

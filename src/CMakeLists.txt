@@ -201,8 +201,10 @@ endif()
 #-----------------------------------------------------------------------------
 # Install support (only if not in embedded mode)
 #-----------------------------------------------------------------------------
+MESSAGE(STATUS "!!!!!!!!!!!!!!! Installing ${PROJECT_NAME}") 
 
 if(NOT US_IS_EMBEDDED)
+  MESSAGE(STATUS "!!!!!!!!!!!!!!! Installing ${PROJECT_NAME} TO ${HEADER_INSTALL_DIR}") 
   install(TARGETS ${PROJECT_NAME}
           EXPORT ${PROJECT_NAME}Targets
           RUNTIME DESTINATION ${RUNTIME_INSTALL_DIR} ${US_SDK_INSTALL_COMPONENT}
